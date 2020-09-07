@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.JsonPatch.Internal;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch.Internal;
 using Rickytech.Plataforma.CQRS.Domain.Entity;
+using Rickytech.Plataforma.CQRS.Domain.Entity.Response;
 using Rickytech.Plataforma.CQRS.Domain.Interfaces.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,11 +12,18 @@ namespace Rickytech.Plataforma.CQRS.Infra.Data.Repository
 {
     public class UsuarioRepository : IUsuarioRepository
     {
-        public List<UsuarioEntity> ListUsuarioEntities = new List<UsuarioEntity>();
+        private readonly IMapper mapper; 
 
-        public async Task Create(UsuarioEntity usuarioEntity)
+        public UsuarioRepository(IMapper mapper)
         {
-            await Task.Run(() => ListUsuarioEntities.Add(usuarioEntity));
+            this.mapper = mapper;
+        }
+
+        public async Task<UsuarioEntityResponse> Create(UsuarioEntity usuarioEntity)
+        {
+            var entityReponse = mapper.Map<UsuarioEntityResponse>(usuarioEntity);
+            entityReponse.Status = "Cadastrado com Sucesso";
+            return await Task.FromResult(entityReponse);
         }
     }
 }

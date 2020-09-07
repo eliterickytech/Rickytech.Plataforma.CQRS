@@ -1,4 +1,5 @@
 ﻿using Rickytech.Plataforma.CQRS.Domain.Command;
+using Rickytech.Plataforma.CQRS.Domain.Entity.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
