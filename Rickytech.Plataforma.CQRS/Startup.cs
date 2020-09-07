@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Rickytech.Plataforma.CQRS.Configuration;
 using Rickytech.Plataforma.CQRS.Domain.Command;
 using Rickytech.Plataforma.CQRS.Domain.Handlers;
 using Rickytech.Plataforma.CQRS.Domain.Interfaces.Domain;
@@ -30,8 +31,8 @@ namespace Rickytech.Plataforma.CQRS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IUsuarioRepository, UsuarioRepository>();
-            services.AddSingleton<IUsuarioCommandHandlers, UsuarioCommandHandlers>();
+            services.AddDependenceInjectionConfig();
+            services.AddAutoMapperConfiguration();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

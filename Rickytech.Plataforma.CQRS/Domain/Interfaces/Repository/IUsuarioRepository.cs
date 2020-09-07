@@ -1,4 +1,5 @@
 ﻿using Rickytech.Plataforma.CQRS.Domain.Entity;
+using Rickytech.Plataforma.CQRS.Domain.Entity.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,6 @@ namespace Rickytech.Plataforma.CQRS.Domain.Interfaces.Repository
 {
     public interface IUsuarioRepository
     {
-        Task Create(UsuarioEntity usuarioEntity);
+        Task<UsuarioEntityResponse> Create(UsuarioEntity usuarioEntity);
     }
 }

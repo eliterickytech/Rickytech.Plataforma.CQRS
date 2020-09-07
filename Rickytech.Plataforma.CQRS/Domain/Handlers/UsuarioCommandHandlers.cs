@@ -1,5 +1,7 @@
-﻿using Rickytech.Plataforma.CQRS.Domain.Command;
+﻿using AutoMapper;
+using Rickytech.Plataforma.CQRS.Domain.Command;
 using Rickytech.Plataforma.CQRS.Domain.Entity;
+using Rickytech.Plataforma.CQRS.Domain.Entity.Response;
 using Rickytech.Plataforma.CQRS.Domain.Interfaces.Domain;
 using Rickytech.Plataforma.CQRS.Domain.Interfaces.Repository;
 using System;
@@ -12,23 +14,21 @@ namespace Rickytech.Plataforma.CQRS.Domain.Handlers
     public class UsuarioCommandHandlers : IUsuarioCommandHandlers
     {
         private readonly IUsuarioRepository usuarioRepository;
+        private readonly IMapper mapper;
 
-        public UsuarioCommandHandlers(IUsuarioRepository usuarioRepository)
+        public UsuarioCommandHandlers(IUsuarioRepository usuarioRepository, IMapper mapper)
         {
             this.usuarioRepository = usuarioRepository;
+            this.mapper = mapper;
         }
 
         public async Task<string> Handle(UsuarioCreateCommand usuarioCreateCommand)
         {
-            var usuarioEntity = new UsuarioEntity
-            (
-                usuarioCreateCommand.Nome,
-                usuarioCreateCommand.Sobrenome,
-                usuarioCreateCommand.Email
-            );
+            // Mapeamento da classe UsuarioCreateCommand para UsuarioEntity
+            var usuarioEntity = mapper.Map<UsuarioEntity>(usuarioCreateCommand);
 
-            await usuarioRepository.Create(usuarioEntity);
-            return await Task.FromResult("Usuario cadastrado com sucesso");
+            var retorno = await usuarioRepository.Create(usuarioEntity);
+            return await Task.FromResult(retorno.Status);
         }
     }
 }
