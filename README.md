@@ -1,0 +1,1 @@
+# Rickytech.Plataforma.CQRS
