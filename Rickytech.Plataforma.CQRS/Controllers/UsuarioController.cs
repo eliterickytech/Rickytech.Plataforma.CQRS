@@ -2,27 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Rickytech.Plataforma.CQRS.Domain.Command;
-using Rickytech.Plataforma.CQRS.Domain.Interfaces.Domain;
 
 namespace Rickytech.Plataforma.CQRS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioController : ControllerBase
+    public class UsuarioController : APIController
     {
-        private readonly IUsuarioCommandHandlers usuarioCommandHandlers;
-        public UsuarioController(IUsuarioCommandHandlers usuarioCommandHandlers) {
-            this.usuarioCommandHandlers = usuarioCommandHandlers;
+        private readonly IMediator mediator;
+
+        public UsuarioController(IMediator mediator) {
+            this.mediator = mediator;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] UsuarioCreateCommand usuarioCreateCommand)
+        public async Task<object> Create([FromBody] UsuarioCreateCommand usuarioCreateCommand)
         {
-            var response = usuarioCommandHandlers.Handle(usuarioCreateCommand);
-            return Ok(response);
+            return await mediator.Send(usuarioCreateCommand);
         }
     }
 }

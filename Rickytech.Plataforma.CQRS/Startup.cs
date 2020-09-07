@@ -1,21 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Rickytech.Plataforma.CQRS.Configuration;
-using Rickytech.Plataforma.CQRS.Domain.Command;
-using Rickytech.Plataforma.CQRS.Domain.Handlers;
-using Rickytech.Plataforma.CQRS.Domain.Interfaces.Domain;
-using Rickytech.Plataforma.CQRS.Domain.Interfaces.Repository;
-using Rickytech.Plataforma.CQRS.Infra.Data.Repository;
+
 
 namespace Rickytech.Plataforma.CQRS
 {
@@ -32,9 +22,13 @@ namespace Rickytech.Plataforma.CQRS
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDependenceInjectionConfig();
+
             services.AddAutoMapperConfiguration();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Adicionar MediatR para o eventos de dominio e notificações
+            services.AddMediatR(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
