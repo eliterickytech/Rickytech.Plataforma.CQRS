@@ -15,7 +15,6 @@ namespace Rickytech.Plataforma.CQRS.Configuration
         public static void AddDependenceInjectionConfig(this IServiceCollection services)
         {
             services.AddSingleton<IUsuarioRepository, UsuarioRepository>();
-            services.AddSingleton<IUsuarioCommandHandlers, UsuarioCommandHandlers>();
         }
     }
 }
