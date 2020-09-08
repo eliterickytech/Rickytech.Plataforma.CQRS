@@ -30,4 +30,4 @@ To know more about how to setup your enviroment visit the [Microsoft .NET Downlo
 - Maybe you don't need a lot of implementations that is included, try avoid the **over engineering**
 
 ## About:
-The Rickytech Project was developed by [Ricardo Macedo Perdigão] under the [MIT license](LICENSE).
+The Rickytech.Plataforma.CQRS was developed by [Ricardo Macedo Perdigão].
